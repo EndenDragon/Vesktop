@@ -61,8 +61,6 @@ export function registerScreenShareHandler() {
             return;
         }
 
-        console.log(JSON.stringify(data));
-
         const choice = await request.frame
             .executeJavaScript(`Vesktop.Components.ScreenShare.openScreenSharePicker(${JSON.stringify(data)})`)
             .then(e => e as StreamPick)
@@ -81,23 +79,6 @@ export function registerScreenShareHandler() {
         };
         if (choice.audio && process.platform === "win32") streams.audio = "loopback";
 
-        const win = new BrowserWindow({ width: 800, height: 1500 });
-        win.loadURL("https://endendragon.github.io/loopback/");
-
-        let called = false;
-
-        win.webContents.on(
-            'did-frame-navigate',
-            (event, url, httpResponseCode, httpStatusText, isMainFrame, frameProcessId, frameRoutingId) => {
-              const frame = webFrameMain.fromId(frameProcessId, frameRoutingId)
-              if (frame && !called) {
-                called = true;
-                streams.audio = frame;
-                callback(streams);
-              }
-            }
-          )
-
-        
+        callback(streams);
     });
 }
