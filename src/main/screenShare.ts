@@ -4,7 +4,7 @@
  * Copyright (c) 2023 Vendicated and Vencord contributors
  */
 
-import { desktopCapturer, session, Streams, BrowserWindow, webFrameMain } from "electron";
+import { desktopCapturer, session, Streams } from "electron";
 import type { StreamPick } from "renderer/components/ScreenSharePicker";
 import { IpcEvents } from "shared/IpcEvents";
 
